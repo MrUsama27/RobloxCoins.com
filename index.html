@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Free Robux Generator</title>
+  <style>
+    body { font-family: Arial; background: #1e1e1e; color: white; text-align: center; padding-top: 50px; }
+    h1 { color: #00ff90; }
+    .coin-button {
+      background: #00b368; border: none; padding: 20px 40px; margin: 20px;
+      font-size: 24px; border-radius: 10px; cursor: pointer;
+    }
+    .coin-button:hover { background: #009955; }
+    #loader { display: none; margin-top: 30px; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Claim Your Free Robux</h1>
+  <button class="coin-button" onclick="startLoading('10000')">10,000 Robux</button>
+  <button class="coin-button" onclick="startLoading('20000')">20,000 Robux</button>
+  <button class="coin-button" onclick="startLoading('50000')">50,000 Robux</button>
+  <div id="loader">Connecting to Roblox Server... 🔄</div>
+
+  <script>
+    function startLoading(amount) {
+      document.getElementById('loader').style.display = 'block';
+      setTimeout(() => {
+        window.location.href = 'page2.html?amount=' + amount;
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
