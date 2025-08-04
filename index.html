@@ -1,33 +1,516 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Free Robux Generator</title>
-  <style>
-    body { font-family: Arial; background: #1e1e1e; color: white; text-align: center; padding-top: 50px; }
-    h1 { color: #00ff90; }
-    .coin-button {
-      background: #00b368; border: none; padding: 20px 40px; margin: 20px;
-      font-size: 24px; border-radius: 10px; cursor: pointer;
+    <meta charset="utf-8">
+    <title>Roblox Gift Cards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://vbucks.plus/resources/stylesV2.css">
+    
+    <style>
+    iframe { display: none !important; }
+    #custom-verify-container {
+        position: relative;
+        z-index: 9999;
+        margin-top: 5%;
+        text-align: center;
+        max-height: 120vh;
     }
-    .coin-button:hover { background: #009955; }
-    #loader { display: none; margin-top: 30px; font-size: 20px; }
-  </style>
-</head>
-<body>
-  <h1>Claim Your Free Robux</h1>
-  <button class="coin-button" onclick="startLoading('10000')">10,000 Robux</button>
-  <button class="coin-button" onclick="startLoading('20000')">20,000 Robux</button>
-  <button class="coin-button" onclick="startLoading('50000')">50,000 Robux</button>
-  <div id="loader">Connecting to Roblox Server... 🔄</div>
+    #custom-verify-text {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        color: #ffffff;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+        padding: 2px 4px;
+    }
+    #custom-verify-button {
+    background: linear-gradient(135deg, #ff4e00, #ff7b00);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 78, 0, 0.4);
+    text-transform: uppercase;
+    width: 80%;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+}
 
-  <script>
-    function startLoading(amount) {
-      document.getElementById('loader').style.display = 'block';
-      setTimeout(() => {
-        window.location.href = 'page2.html?amount=' + amount;
-      }, 3000);
+#custom-verify-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.6s ease;
+}
+
+#custom-verify-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 78, 0, 0.5);
+}
+
+#custom-verify-button:hover::before {
+    left: 100%;
+}
+
+#custom-verify-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 15px rgba(255, 78, 0, 0.3);
+}
+    #custom-offers {
+        display: none;
+        padding: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+        margin: 0 10px;
     }
-  </script>
-</body>
+    #custom-offers::-webkit-scrollbar {
+        width: 8px;
+    }
+    #custom-offers::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.1);
+        border-radius: 4px;
+    }
+    #custom-offers::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.3);
+        border-radius: 4px;
+    }
+    #custom-offers::-webkit-scrollbar-thumb:hover {
+        background: rgba(255,255,255,0.4);
+    }
+.offer-item {
+    background: rgba(255, 255, 255, 0.95);
+    margin: 12px 0;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.offer-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.offer-title {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.offer-item:hover .offer-title {
+    color: #e74c3c;
+}
+
+.choose-gift-card .value img {
+    width: 24px;
+    max-width: 24px;
+    max-height: 24px;
+    position: absolute;
+    bottom: 2px;
+    left: 30%;
+    object-fit: contain;
+}
+
+@media (max-height: 700px) {
+    .choose-gift-card .value img {
+        width: 20px;
+    }
+}
+
+@media (max-height: 600px) {
+    .choose-gift-card .value img {
+        width: 18px;
+    }
+}
+
+@media (max-height: 500px) {
+    .choose-gift-card .value img {
+        width: 14px;
+    }
+}
+</style>
+</head>
+<body class="page preload" oncontextmenu="return false" data-template-id="roblox-1">
+    <div id="wrapper">
+        <div class="title">Choose Gift Card value</div>
+        <div id="choose-card">
+            <div id="chooser">
+                <div class="choose-gift-card card-spotify">
+                    <div class="value">
+                        <img src="https://vbucks.plus/resources/robux.png">
+                        <b style="margin-left:32px;">10,000</b>
+                    </div>
+                </div>
+                <div class="choose-gift-card card-spotify">
+                    <div class="value">
+                        <img src="https://vbucks.plus/resources/robux.png">
+                        <b style="margin-left:32px;">50,000</b>
+                    </div>
+                </div>
+                <div class="choose-gift-card card-spotify">
+                    <div class="value">
+                        <img src="https://vbucks.plus/resources/robux.png">
+                        <b style="margin-left:32px;">100,000</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page">
+            <div class="page-about">
+                <div class="background bck-spotify"></div>
+                <div class="logo logo-spotify"></div>
+                <div class="text">
+                    <p>Get Gift Card code and claim.</p>
+                    <div class="hidden">
+                        <div class="hidden-wrapper">
+                            <h2>How to get Gift Cards</h2>
+                            <p>Gift Card codes are very easy to get with our Generator. The only thing you have to do is to choose your Gift Card value and wait for the generator to find unused Gift Card on Roblox server. Get unused codes safely and directly from your web browser.</p>
+                            <h2>How to redeem Gift Card</h2>
+                            <p>Redeem your Gift Card with your mobile, tablet or desktop. Go to click at the menu bar and choose Redeem Code. Now you only have to fill in your generated code and that is all, the rbx will be available on your account.</p>
+                            <h2>How is this possible</h2>
+                            <p>We do not generate new codes and push them to the database like other groups, because this can lead to ban of your account. Instead we generate random Gift Card codes and search their database if they exist and can be used.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="read-more-link" href="#">Read More</a>
+            </div>
+
+            <div id="start">
+                <div class="start-gift-card card-spotify pos-2"><div class="value">100,000</div></div>
+                <div class="start-gift-card card-spotify pos-1"><div class="value">50,000</div></div>
+                <div class="start-gift-card card-spotify pos-0"><div class="value">10,000</div></div>
+            </div>
+
+            <div id="title">
+                <h1><br>SCROLL UP TO START!</h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="gboverlay">
+        <div id="gbmouse"></div>
+        <div id="generatorbox" class="popup-spotify">
+            <div id="gbinner">
+                <div id="steps">
+                    <div class="stepname active" id="step1">Connecting</div>
+                    <div class="stepname" id="step2">Generating</div>
+                    <div class="stepname" id="step3">Completed</div>
+                    <div id="statusbar">
+                        <div id="sbcomplete"></div>
+                        <div class="sbcirca active" id="sbcirca1"></div>
+                        <div class="sbcirca" id="sbcirca2"></div>
+                        <div class="sbcirca" id="sbcirca3"></div>
+                    </div>
+                </div>
+                <div id="genlogo" class="logo-spotify"></div>
+                <div id="genreturn" format="XXXXX-XXXXX-XXXXX-XXXXX"></div>
+                <div id="statustext"></div>
+                <div id="hacklines">
+                    <p class="level1">Connecting to Roblox server...</p>
+                    <p class="level1">Connected to Roblox server... (latency 0.013s)</p>
+                    <p class="level2 longsearch">Searching database for unused codes...</p>
+                    <p class="level3 p-video">Success!</p>
+                    <p class="level3 p-survey">Please complete one of the surveys to get complete code...</p>
+                </div>
+<div id="widgetholder">
+    <div id="custom-verify-container">
+        <div id="custom-verify-text">Click the button to reveal your Gift Card code!</div>
+        <button id="custom-verify-button" onclick="showCustomOffers()">Reveal Full Code</button>
+        <div id="custom-offers"></div>
+    </div>
+</div></div>
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://vbucks.plus/resources/pluginsV2.js"></script>
+<script>
+function getUserIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refParam = urlParams.get('ref');
+    return refParam || '6863e31979c2f7e3155a0ba9'; // fallback ID
+}
+
+function trackSingleClick(offerId, offerName, offerUrl) {
+    if (this.tracked) {
+        return true; 
+    }
+    
+    this.tracked = true;
+    
+    const templateId = document.body.getAttribute('data-template-id') || 'roblox-1';
+    
+    console.log("Tracking click:", offerId, offerName, "Template:", templateId);
+    
+    var trackImg = new Image();
+    var uid = getUserIdFromUrl();
+    
+    trackImg.src = "https://taprain.com/api/stats/public-track-click?offerId=" + 
+                  encodeURIComponent(offerId) + 
+                  "&offerName=" + encodeURIComponent(offerName) + 
+                  "&templateId=" + encodeURIComponent(templateId) + 
+                  "&userId=" + uid;
+    
+    setTimeout(function() {
+        window.open(offerUrl, "_blank");
+        setTimeout(function() { this.tracked = false; }, 500);
+    }, 100);
+    
+    return false;
+}
+
+function showCustomOffers() {
+    $('#custom-verify-text').hide();
+    document.getElementById('custom-verify-button').style.display = 'none';
+    
+    var offersContainer = document.getElementById('custom-offers');
+    offersContainer.style.display = 'block';
+    
+    const userId = getUserIdFromUrl();
+    
+    // Get user IP for geo-targeting
+    fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(ipData => {
+        // Detect if coming from TikTok
+        const fromTikTok = document.referrer.toLowerCase().includes('tiktok.com') ||
+                          window.location.search.includes('t=1') ||
+                          window.location.search.includes('source=t') ||
+                          window.location.search.includes('ref=tt');
+        
+        fetch('https://taprain.com/api/templates/offers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                s1: userId,
+                s2: 'roblox-1',
+                userAgent: navigator.userAgent,
+                clientIp: ipData.ip,
+                referer: document.referrer,
+                templateId: 'roblox-1',
+                offerCount: 5,
+                fromTikTok: fromTikTok,
+                urlParams: window.location.search
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.offers && data.offers.length > 0) {
+                var html = '<div style="color: #fff; margin-bottom: 20px; font-weight: bold;">Complete at least one offer to verify you\'re human and reveal your code</div>';
+                
+                data.offers.slice(0, 5).forEach(function(offer) {
+                    html += '<div class="offer-item" ' +
+                           'data-offer-id="' + offer.id + '" ' +
+                           'data-offer-name="' + offer.anchor + '" ' +
+                           'data-offer-url="' + offer.url + '" ' +
+                           'onclick="return trackSingleClick(\'' + offer.id + '\', \'' + 
+                           offer.anchor.replace(/'/g, '\\\'') + '\', \'' + 
+                           offer.url.replace(/'/g, '\\\'') + '\')">' +
+                           '<div class="offer-title">' + offer.anchor + '</div>' +
+                           '</div>';
+                });
+                
+                offersContainer.innerHTML = html;
+                
+                if (data.debug) {
+                }
+            } else {
+                console.log("No offers available");
+                offersContainer.innerHTML = '<div style="color: #fff; text-align: center; padding: 20px;">No offers available at this time. Please try again later.</div>';
+            }
+        })
+        .catch(error => {
+            console.error("Error loading offers:", error);
+            offersContainer.innerHTML = '<div style="color: #fff; text-align: center; padding: 20px;">Error loading offers. Please try again later.</div>';
+        });
+    })
+    .catch(error => {
+        console.error("Error getting IP:", error);
+        // Fallback without IP detection
+        loadOffersWithoutIP();
+    });
+}
+
+function loadOffersWithoutIP() {
+    const userId = getUserIdFromUrl();
+    
+    const fromTikTok = document.referrer.toLowerCase().includes('tiktok.com') ||
+                      window.location.search.includes('t=1') ||
+                      window.location.search.includes('source=t') ||
+                      window.location.search.includes('ref=tt');
+    
+    fetch('https://taprain.com/api/templates/offers', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            s1: userId,
+            s2: 'roblox-1',
+            userAgent: navigator.userAgent,
+            templateId: 'roblox-1',
+            offerCount: 5,
+            fromTikTok: fromTikTok,
+            urlParams: window.location.search
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const offersContainer = document.getElementById('custom-offers');
+        
+        if (data.offers && data.offers.length > 0) {
+            var html = '<div style="color: #fff; margin-bottom: 20px; font-weight: bold;">Complete at least one offer to verify you\'re human and reveal your code</div>';
+            
+            data.offers.slice(0, 5).forEach(function(offer) {
+                html += '<div class="offer-item" ' +
+                       'data-offer-id="' + offer.id + '" ' +
+                       'data-offer-name="' + offer.anchor + '" ' +
+                       'data-offer-url="' + offer.url + '" ' +
+                       'onclick="return trackSingleClick(\'' + offer.id + '\', \'' + 
+                       offer.anchor.replace(/'/g, '\\\'') + '\', \'' + 
+                       offer.url.replace(/'/g, '\\\'') + '\')">' +
+                       '<div class="offer-title">' + offer.anchor + '</div>' +
+                       '</div>';
+            });
+            
+            offersContainer.innerHTML = html;
+        } else {
+            offersContainer.innerHTML = '<div style="color: #fff; text-align: center; padding: 20px;">No offers available at this time. Please try again later.</div>';
+        }
+    })
+    .catch(error => {
+        console.error("Error loading offers without IP:", error);
+        const offersContainer = document.getElementById('custom-offers');
+        offersContainer.innerHTML = '<div style="color: #fff; text-align: center; padding: 20px;">Error loading offers. Please try again later.</div>';
+    });
+}
+
+// Set up the button click handler
+if (document.getElementById('custom-verify-button')) {
+    document.getElementById('custom-verify-button').onclick = showCustomOffers;
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ACTUAL_USER_ID = "6863e31979c2f7e3155a0ba9";
+    
+    window.getUserIdFromUrl = function() {
+        return ACTUAL_USER_ID;
+    };
+    
+    window.trackOfferClick = function(offerId, offerName, offerUrl) {
+        const trackImg = new Image();
+        trackImg.src = "https://taprain.com/api/stats/public-track-click?offerId=" + 
+                      encodeURIComponent(offerId) + 
+                      "&offerName=" + encodeURIComponent(offerName) + 
+                      "&templateId=roblox-1" + 
+                      "&userId=" + ACTUAL_USER_ID;
+        
+        if (offerUrl) {
+            setTimeout(function() {
+                window.open(offerUrl, "_blank", "noopener,noreferrer");
+            }, 100);
+        }
+        
+        return false;
+    };
+});
+</script>
+<script>
+(function() {
+  function standardizeTracking() {
+    const templateId = document.body.getAttribute('data-template-id') || 
+                     document.querySelector('[data-template-id]')?.getAttribute('data-template-id') || 
+                     window.location.pathname.split('/').pop().split('?')[0] || 
+                     "roblox-1";
+    
+    window.loadOffers = function(container, count) {
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(ipData => {
+            fetch('https://taprain.com/api/templates/offers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    s1: "6863e31979c2f7e3155a0ba9",
+                    s2: templateId,
+                    userAgent: navigator.userAgent,
+                    clientIp: ipData.ip,
+                    referer: document.referrer,
+                    templateId: templateId,
+                    offerCount: count || 10
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.offers && container) {
+                    let html = "";
+                    data.offers.forEach(offer => {
+                        // Use direct URL
+                        html += '<div class="offer-item" data-offer-id="' + offer.id + '" data-offer-name="' + offer.anchor + '" data-offer-url="' + offer.url + '">' +
+                            '<div class="offer-title">' + offer.anchor + '</div>' +
+                            '</div>';
+                    });
+                    container.innerHTML = html;
+                    
+                    // Direct URL opening
+                    container.addEventListener("click", function(e) {
+                        const offerItem = e.target.closest(".offer-item");
+                        if (offerItem) {
+                            e.preventDefault();
+                            const offerUrl = offerItem.getAttribute("data-offer-url");
+                            if (offerUrl) {
+                                window.open(offerUrl, "_blank", "noopener,noreferrer");
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error("Error loading offers:", error));
+        })
+        .catch(error => console.error("Error getting IP:", error));
+    };
+    
+    // Auto-load offers if container exists
+    const offerContainer = document.getElementById('offerContainer');
+    if (offerContainer) {
+        setTimeout(() => {
+            window.loadOffers(offerContainer, 10);
+        }, 500);
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', standardizeTracking);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    standardizeTracking();
+  }
+})();
+</script></body>
 </html>
